@@ -85,11 +85,7 @@ export function AppBridgeProvider({ children }) {
   }
 
   return (
-    <Provider
-      config={appBridgeConfig}
-      router={routerConfig}
-      shop={appBridgeConfig.host}
-    >
+    <Provider config={appBridgeConfig} router={routerConfig}>
       {children}
     </Provider>
   );
