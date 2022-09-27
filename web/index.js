@@ -11,6 +11,7 @@ import { setupGDPRWebHooks } from "./gdpr.js";
 import productCreator from "./helpers/product-creator.js";
 import { BillingInterval } from "./helpers/ensure-billing.js";
 import { AppInstallations } from "./app_installations.js";
+import scriptTagApi from "./middleware/script_tag_api.js";
 
 const USE_ONLINE_TOKENS = false;
 const TOP_LEVEL_OAUTH_COOKIE = "shopify_top_level_oauth";
@@ -68,6 +69,7 @@ export async function createServer(
   billingSettings = BILLING_SETTINGS
 ) {
   const app = express();
+  scriptTagApi(app);
   app.set("top-level-oauth-cookie", TOP_LEVEL_OAUTH_COOKIE);
   app.set("use-online-tokens", USE_ONLINE_TOKENS);
 
@@ -136,6 +138,13 @@ export async function createServer(
 
   // All endpoints after this point will have access to a request.body
   // attribute, as a result of the express.json() middleware
+  async function injectSession(ctx, next) {
+    const session = Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
+    ctx.sessionFromToken = session;
+    console.log(session);
+    return next();
+  }
+  app.use(injectSession);
   app.use(express.json());
 
   app.use((req, res, next) => {
@@ -187,7 +196,6 @@ export async function createServer(
         .send(fs.readFileSync(fallbackFile));
     }
   });
-
   return { app };
 }
 

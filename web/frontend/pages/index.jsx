@@ -7,7 +7,8 @@ import {
   useAppBridge,
   useNavigate,
 } from "@shopify/app-bridge-react";
-import { Link, Page, TextContainer } from "@shopify/polaris";
+import { Page, TextContainer } from "@shopify/polaris";
+import { Link } from "react-router-dom";
 
 export default function HomePage() {
   const [open, setOpen] = useState(false);
@@ -35,7 +36,7 @@ export default function HomePage() {
   return (
     <>
       <TextContainer spacing="tight">
-        <Link url="/about"></Link>
+        <Link to="/InstallBanner">InstallBanner</Link>
         <Page
           title="Product"
           primaryAction={{

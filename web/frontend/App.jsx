@@ -21,8 +21,12 @@ export default function App() {
             <NavigationMenu
               navigationLinks={[
                 {
-                  label: "Page name",
-                  destination: "/pagename",
+                  label: "Home",
+                  destination: "/",
+                },
+                {
+                  label: "Install Banner",
+                  destination: "/InstallBanner",
                 },
               ]}
             />
