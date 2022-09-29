@@ -12,8 +12,8 @@
     "deploy": "shopify app deploy"
   },
   "dependencies": {
-    "@shopify/app": "3.7.1",
-    "@shopify/cli": "3.7.1",
+    "@shopify/app": "^3.15.0",
+    "@shopify/cli": "^3.15.0",
     "axios": "^0.27.2",
     "store-js": "^2.0.4"
   },

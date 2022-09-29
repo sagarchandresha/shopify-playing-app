@@ -138,13 +138,13 @@ export async function createServer(
 
   // All endpoints after this point will have access to a request.body
   // attribute, as a result of the express.json() middleware
-  async function injectSession(ctx, next) {
-    const session = Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
-    ctx.sessionFromToken = session;
-    console.log(session);
-    return next();
-  }
-  app.use(injectSession);
+  // async function injectSession(ctx, next) {
+  //   const session = Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
+  //   ctx.sessionFromToken = session;
+  //   console.log(session);
+  //   return next();
+  // }
+  // app.use(injectSession);
   app.use(express.json());
 
   app.use((req, res, next) => {

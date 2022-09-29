@@ -11,15 +11,15 @@ function InstallBanner() {
   const app = useAppBridge();
   console.log(app);
   const handleToggle = async () => {
-    if (!isInstalled) {
-      const token = await getSessionToken(app);
-      const config = {
-        headers: {
-          Autorization: `Bearer ${token}`,
-        },
-      };
-      axios.post(app.localOrigin + "/api/scriptTag", {}, config);
-    }
+    // if (!isInstalled) {
+    //   const token = await getSessionToken(app);
+    //   const config = {
+    //     headers: {
+    //       Autorization: `Bearer ${token}`,
+    //     },
+    //   };
+    //   axios.post(app.localOrigin + "/api/scriptTag", {}, config);
+    // }
     setIsInstalled(!isInstalled);
   };
   return (
