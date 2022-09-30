@@ -1,25 +1,19 @@
-<style>
-  div {
-    text-align: center;
+<script>
+  window.onload = async function() {
+    var script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js';
+    document.getElementsByTagName('head')[0].appendChild(script);
+    const fetchOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+    const result = await fetch("/admin/apps/playing-app-1/api/test-api", fetchOptions);
+    const data = await result.json();
+    console.log(data);
   }
-  h1 {
-    font-size: 30px;
-    color: brown;
-    text-transform: uppercase;
-    font-weight: 600;
-  }
-  p {
-    display: block;
-    font-size: 16 pxp;
-    font-weight: 500;
-    color: black;
-  }
-  p b {
-    font-weight: bold;
-    color: cadetblue;
-    font-size: 20px;
-  }
-</style>
+</script>
 <div>
   <h1>Playing App Code Block.</h1>
   <p>Product title is
@@ -37,7 +31,7 @@
     "name": "t:blocks.header.name",
     "target": "section",
     "templates": ["product"],
-    "stylesheet": "booster.css",
+    "stylesheet": "playing-app.css",
     "settings": []
   }
 {% endschema %}

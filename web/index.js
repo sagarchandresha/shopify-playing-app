@@ -11,7 +11,7 @@ import { setupGDPRWebHooks } from "./gdpr.js";
 import productCreator from "./helpers/product-creator.js";
 import { BillingInterval } from "./helpers/ensure-billing.js";
 import { AppInstallations } from "./app_installations.js";
-import scriptTagApi from "./middleware/script_tag_api.js";
+import customApis from "./middleware/custom_apis.js";
 
 const USE_ONLINE_TOKENS = false;
 const TOP_LEVEL_OAUTH_COOKIE = "shopify_top_level_oauth";
@@ -69,7 +69,7 @@ export async function createServer(
   billingSettings = BILLING_SETTINGS
 ) {
   const app = express();
-  scriptTagApi(app);
+  customApis(app);
   app.set("top-level-oauth-cookie", TOP_LEVEL_OAUTH_COOKIE);
   app.set("use-online-tokens", USE_ONLINE_TOKENS);
 

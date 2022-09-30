@@ -9,17 +9,21 @@ function InstallBanner() {
   const contentStatus = isInstalled ? "Install" : "Uninstall";
   const contentText = !isInstalled ? "installed" : "uninstalled";
   const app = useAppBridge();
-  console.log(app);
   const handleToggle = async () => {
-    // if (!isInstalled) {
-    //   const token = await getSessionToken(app);
-    //   const config = {
-    //     headers: {
-    //       Autorization: `Bearer ${token}`,
-    //     },
-    //   };
-    //   axios.post(app.localOrigin + "/api/scriptTag", {}, config);
-    // }
+    if (!isInstalled) {
+      const token = await getSessionToken(app);
+      const config = {
+        headers: {
+          Autorization: `Bearer ${token}`,
+        },
+      };
+      const resp = await axios.get(
+        app.localOrigin + "/api/test-api",
+        {},
+        config
+      );
+      console.log(resp.data.message);
+    }
     setIsInstalled(!isInstalled);
   };
   return (
