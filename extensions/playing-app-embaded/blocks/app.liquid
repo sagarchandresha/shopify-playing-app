@@ -1,0 +1,43 @@
+<style>
+  div {
+    text-align: center;
+  }
+  h1 {
+    font-size: 30px;
+    color: brown;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  p {
+    display: block;
+    font-size: 16 pxp;
+    font-weight: 500;
+    color: black;
+  }
+  p b {
+    font-weight: bold;
+    color: cadetblue;
+    font-size: 20px;
+  }
+</style>
+<div>
+  <h1>Playing App Code Block.</h1>
+  <p>Product title is
+    <b>{{product.title}}
+    </b>
+  </p>
+  <p>Price is
+    <b>{{product.price | money}}
+    </b>
+  </p>
+</div>
+
+{% schema %}
+  {
+    "name": "t:blocks.header.name",
+    "target": "section",
+    "templates": ["product"],
+    "stylesheet": "booster.css",
+    "settings": []
+  }
+{% endschema %}

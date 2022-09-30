@@ -1,0 +1,10 @@
+{
+	"blocks": {
+        "header": {
+            "name":"Playing-app",
+            "tool":"Developer Tool",
+            "close":"Close"
+           }
+    }
+
+}
