@@ -4,12 +4,12 @@
     script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js';
     document.getElementsByTagName('head')[0].appendChild(script);
     const fetchOptions = {
-      method: "POST",
+      method: "GET",
       headers: {
         "Content-Type": "application/json"
       }
     };
-    const result = await fetch("/admin/apps/playing-app-1/api/test-api", fetchOptions);
+    const result = await fetch("/apps/playing-app/api/test-api", fetchOptions);
     const data = await result.json();
     console.log(data);
   }
