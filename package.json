@@ -5,7 +5,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "shopify": "shopify",
-    "start": "cross-env NODE_ENV=production node ./web/index.js",
+    // "start": "cross-env NODE_ENV=production node ./web/index.js",
     "build": "shopify app build",
     "dev": "shopify app dev",
     "info": "shopify app info",
