@@ -19,8 +19,5 @@
     "mongoose": "^6.6.3",
     "store-js": "^2.0.4"
   },
-  "author": "star",
-  "engines": {
-    "node": "16.x"
-  }
+  "author": "star"
 }
