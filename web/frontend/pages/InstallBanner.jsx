@@ -1,7 +1,7 @@
 import { useAppBridge } from "@shopify/app-bridge-react";
 import { getSessionToken } from "@shopify/app-bridge-utils";
 import { Card, Layout, Page, SettingToggle, TextStyle } from "@shopify/polaris";
-// import axios from "axios";
+import axios from "axios";
 import React, { useState } from "react";
 
 function InstallBanner() {
@@ -17,12 +17,12 @@ function InstallBanner() {
           Autorization: `Bearer ${token}`,
         },
       };
-      // const resp = await axios.get(
-      //   app.localOrigin + "/api/test-api",
-      //   {},
-      //   config
-      // );
-      // console.log(resp.data.message);
+      const resp = await axios.get(
+        app.localOrigin + "/api/test-api",
+        {},
+        config
+      );
+      console.log(resp.data.message);
     }
     setIsInstalled(!isInstalled);
   };
