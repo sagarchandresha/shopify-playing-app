@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import EmptyProductPage from "../components/products/EmptyProductPage";
 import ProductPage from "../components/products/ProductPage";
-import store from "store-js";
 import {
   ResourcePicker,
   useAppBridge,
@@ -18,8 +17,8 @@ export default function HomePage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const productList = store.get(`${hostOrigin}-products`);
-    productList && setProducts(productList);
+    // const productList = store.get(`${hostOrigin}-products`);
+    // productList && setProducts(productList);
   }, []);
   useEffect(() => {
     const ids = products.map((product) => {
@@ -31,7 +30,7 @@ export default function HomePage() {
   const handleSelection = (selection) => {
     setOpen(false);
     setProducts([...selection.selection]);
-    store.set(`${hostOrigin}-products`, selection.selection);
+    // store.set(`${hostOrigin}-products`, selection.selection);
   };
   return (
     <>
