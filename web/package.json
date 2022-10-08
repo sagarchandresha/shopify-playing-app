@@ -13,13 +13,14 @@
   },
   "dependencies": {
     "@shopify/shopify-api": "^5.0.0",
+    "axios": "^0.27.2",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "express": "^4.17.3",
-    "serve-static": "^1.14.1",
-    "axios": "^0.27.2",
     "mongoose": "^6.6.3",
+    "serve-static": "^1.14.1",
     "store-js": "^2.0.4"
   },
   "devDependencies": {

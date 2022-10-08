@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
+import cors from "cors";
 
 export default function scriptTagApi(app) {
+  app.use(cors());
   mongoose.connect("mongodb://localhost:27017/playing-app").then(() => console.log("working")).catch((err) => console.log(err))
   const DetailSchema = new mongoose.Schema({
     id: {
