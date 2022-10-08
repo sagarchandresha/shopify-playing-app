@@ -1,9 +1,8 @@
 {% assign upsell_product = block.settings.product %}
 {% if upsell_product != blank %}
 <div class="playing-app-main">
-  <button>
-    Add {{upsell_product.title}} now.
-  </button>
+  <!-- HTML !-->
+<button id="add_on" role="button">Add {{upsell_product.title}} now.</button>
   <form id="playing_app_upsell">
     <input type="hidden" name="id" value="{{upsell_product.variants.first.id}}" />
     <input type="hidden" name="quantity" value="1"/>
@@ -16,15 +15,23 @@
     script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js';
     document.getElementsByTagName('head')[0].appendChild(script);
     $(document).ready(function() {
-      $("#add_on").on("change", function() {
+      $("#add_on").on("click", function() {
+        const initText = $(this).text();
+          $(this).text("Adding...")
           $.ajax("/cart/add.js", {
             type: 'POST', 
             dataType: 'json', 
             data: $('#playing_app_upsell').serialize(),
           }).then(function(responseJSON) {
+            $("#add_on").text("Whoo! You have added...!");
             console.log("added:" , responseJSON.message);
           }).catch(function(err) {
+            $("#add_on").text("Something went wrong...!");
             console.log('Caught an error:' + err.statusText);
+          }).done(function() {
+            setTimeout(function() {
+              $("#add_on").text(initText);
+            }, 2000)
           });  
       })
     })
