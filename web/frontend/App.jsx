@@ -24,10 +24,6 @@ export default function App() {
                   label: "Home",
                   destination: "/",
                 },
-                {
-                  label: "Install Banner",
-                  destination: "/InstallBanner",
-                },
               ]}
             />
             <Routes pages={pages} />

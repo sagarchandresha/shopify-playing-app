@@ -1,31 +1,48 @@
-<div>
-  <h1>Playing App Code Block.</h1>
-  <p>Product title is
-    <b>{{ product.title }}
-    </b>
-  </p>
-  <p>Price is
-    <b>{{ product.price | money }}
-    </b>
-  </p>
-  <button id="click_me">Click me to insert data :</button>
+{% assign upsell_product = block.settings.product %}
+{% if upsell_product != blank %}
+<div class="playing-app-main">
+  <input type="checkbox" id="add_on" />
+  <form id="playing_app_upsell">
+    <input type="hidden" name="id" value="{{upsell_product.variants.first.id}}" />
+    <input type="hidden" name="properties[using_upsell]" value="yes" />
+    <input type="hidden" name="quantity" value="1"/>
+    <label>Add {{upsell_product.title}}</label>
+  </form>
+  <form id="remove_playing_app_upsell">
+    <input type="hidden" name="id" value="{{upsell_product.variants.first.id}}" />
+    <input type="hidden" name="properties[using_upsell]" value="yes" />
+    <input type="hidden" name="quantity" value="-1"/>
+  </form>
 </div>
+{% endif %}
 <script>
   window.onload = function() {
     var script = document.createElement('script');
     script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js';
     document.getElementsByTagName('head')[0].appendChild(script);
     $(document).ready(function() {
-      $("#click_me").on("click", function() {
-        $.ajax("https://playing-app-hopiant.herokuapp.com/api/test-api", {
-          method: 'GET',
-          dataType: 'json',
-          timeout: 5000
-        }).then(function(responseJSON) {
-          console.log(responseJSON.message);
-        }).catch(function(err) {
-          console.log('Caught an error:' + err.statusText);
-        });
+      $("#add_on").on("change", function() {
+        if($(this).is(':checked')){
+          $.ajax("/cart/add.js", {
+            type: 'POST', 
+            dataType: 'json', 
+            data: $('#playing_app_upsell').serialize(),
+          }).then(function(responseJSON) {
+            console.log("added:" , responseJSON.message);
+          }).catch(function(err) {
+            console.log('Caught an error:' + err.statusText);
+          }); 
+        } else {
+          $.ajax("/cart/change.js", {
+            type: 'POST', 
+            dataType: 'json', 
+            data: $('#remove_playing_app_upsell').serialize(),
+          }).then(function(responseJSON) {
+            console.log("changed : ",responseJSON.message);
+          }).catch(function(err) {
+            console.log('Caught an error:' + err.statusText);
+          });
+        }
       })
     })
   }
@@ -37,6 +54,12 @@
     "target": "section",
     "templates": ["product"],
     "stylesheet": "playing-app.css",
-    "settings": []
+    "settings": [
+      {
+        "type": "product",
+        "id": "product",
+        "label": "Select Product For Upsell"
+      }
+    ]
   }
-{% endschema %}}}}
+{% endschema %}

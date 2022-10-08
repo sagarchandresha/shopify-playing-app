@@ -36,7 +36,6 @@ export default function HomePage() {
   return (
     <>
       <TextContainer spacing="tight">
-        <Link to="/InstallBanner">InstallBanner</Link>
         <Page
           title="Product"
           primaryAction={{
