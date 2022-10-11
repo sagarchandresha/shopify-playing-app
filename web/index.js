@@ -22,7 +22,8 @@ const PORT = parseInt(process.env.BACKEND_PORT || process.env.PORT, 10);
 const DEV_INDEX_PATH = `${process.cwd()}/frontend/`;
 const PROD_INDEX_PATH = `${process.cwd()}/frontend/dist/`;
 
-const DB_PATH = `${process.cwd()}/database.sqlite`;
+const DB_PATH =
+  "mongodb+srv://sagar:sagar@cluster0.sh1h31k.mongodb.net/playing-app?retryWrites=true&w=majority";
 
 Shopify.Context.initialize({
   API_KEY: process.env.SHOPIFY_API_KEY,
@@ -33,9 +34,12 @@ Shopify.Context.initialize({
   API_VERSION: LATEST_API_VERSION,
   IS_EMBEDDED_APP: true,
   // This should be replaced with your preferred storage strategy
-  SESSION_STORAGE: new Shopify.Session.SQLiteSessionStorage(DB_PATH),
+  // SESSION_STORAGE: new Shopify.Session.SQLiteSessionStorage(DB_PATH),
+  SESSION_STORAGE: new Shopify.Session.MongoDBSessionStorage(
+    DB_PATH,
+    "playing-app"
+  ),
 });
-
 Shopify.Webhooks.Registry.addHandler("APP_UNINSTALLED", {
   path: "/api/webhooks",
   webhookHandler: async (_topic, shop, _body) => {
@@ -136,15 +140,6 @@ export async function createServer(
     res.status(status).send({ success: status === 200, error });
   });
 
-  // All endpoints after this point will have access to a request.body
-  // attribute, as a result of the express.json() middleware
-  // async function injectSession(ctx, next) {
-  //   const session = Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
-  //   ctx.sessionFromToken = session;
-  //   console.log(session);
-  //   return next();
-  // }
-  // app.use(injectSession);
   app.use(express.json());
 
   app.use((req, res, next) => {
@@ -200,3 +195,8 @@ export async function createServer(
 }
 
 createServer().then(({ app }) => app.listen(PORT));
+// load session
+export async function returnSessionData(req, res) {
+  const decode = await Shopify.Utils?.loadCurrentSession(req, res);
+  return decode;
+}

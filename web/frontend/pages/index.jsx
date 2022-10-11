@@ -7,8 +7,9 @@ import {
   useAppBridge,
   useNavigate,
 } from "@shopify/app-bridge-react";
-import { Page, TextContainer } from "@shopify/polaris";
+import { Button, Page, TextContainer } from "@shopify/polaris";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function HomePage() {
   const [open, setOpen] = useState(false);
@@ -32,6 +33,12 @@ export default function HomePage() {
     setOpen(false);
     setProducts([...selection.selection]);
     store.set(`${hostOrigin}-products`, selection.selection);
+  };
+  const handleGetOrder = () => {
+    console.log("workin get order");
+    axios.get("/api/getOrder").then((response) => {
+      console.log(response.data);
+    });
   };
   return (
     <>
@@ -58,6 +65,10 @@ export default function HomePage() {
               handleSelection={handleSelection}
               productsId={productsId}
             />
+            <Button outline onClick={handleGetOrder}>
+              {" "}
+              Get Orders
+            </Button>
           </>
         ) : (
           <ProductPage products={products} />

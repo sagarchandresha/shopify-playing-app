@@ -6,6 +6,7 @@ function ProductPage({ products }) {
   return (
     <Page>
       <ProductList products={products} />
+      <Button outline> Get Order</Button>
     </Page>
   );
 }

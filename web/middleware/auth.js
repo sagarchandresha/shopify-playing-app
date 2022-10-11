@@ -98,6 +98,8 @@ export default function applyAuthMiddleware(
       }
 
       // Redirect to app with shop parameter upon auth
+      console.log("session shop:", session.shop);
+      console.log("session accessToken:", session.accessToken);
       res.redirect(redirectUrl);
     } catch (e) {
       console.warn(e);
