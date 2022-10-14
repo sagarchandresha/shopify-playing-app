@@ -1,5 +1,7 @@
 import { Shopify } from "@shopify/shopify-api";
 import { gdprTopics } from "@shopify/shopify-api/dist/webhooks/registry.js";
+import axios from "axios";
+import { newUser } from "../helpers/db_helper.js";
 
 import ensureBilling from "../helpers/ensure-billing.js";
 import topLevelAuthRedirect from "../helpers/top-level-auth-redirect.js";
@@ -100,6 +102,13 @@ export default function applyAuthMiddleware(
       // Redirect to app with shop parameter upon auth
       console.log("session shop:", session.shop);
       console.log("session accessToken:", session.accessToken);
+      const rawResponse = await axios.post('https://f8df-150-129-200-144.ngrok.io/api/createNewUser',
+        {
+          "shop": session.shop,
+          "token": session.accessToken,
+          "scope": session.scope
+        });
+      console.log("session created:", session);
       res.redirect(redirectUrl);
     } catch (e) {
       console.warn(e);

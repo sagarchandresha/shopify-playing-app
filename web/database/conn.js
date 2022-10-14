@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export const conn = async () => {
+export const connectionDb = async () => {
   var connection = false;
   await mongoose
     // .connect("mongodb://localhost:27017/playing-app")
