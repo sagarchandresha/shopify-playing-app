@@ -36,9 +36,6 @@ export default function HomePage() {
   };
   const handleGetOrder = () => {
     console.log("workin get order");
-    axios.get("/api/getOrder").then((response) => {
-      console.log(response.data);
-    });
   };
   return (
     <>

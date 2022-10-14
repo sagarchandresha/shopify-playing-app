@@ -1,9 +1,12 @@
 import mongoose from "mongoose";
 import cors from "cors";
-import { returnSessionData } from "../index.js";
+import express from "express";
 
-export default function scriptTagApi(app) {
+export default function customApis(app) {
   app.use(cors());
+  //Here we are configuring express to use body-parser as middle-ware.
+  app.use(express.json()); // for parsing application/json
+  app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
   mongoose
     // .connect("mongodb://localhost:27017/playing-app")
     .connect(
@@ -12,22 +15,27 @@ export default function scriptTagApi(app) {
     .then(() => console.log("working"))
     .catch((err) => console.log(err));
   const DetailSchema = new mongoose.Schema({
-    id: {
+    shop: {
       type: String,
       required: true,
     },
-    name: {
+    token: {
       type: String,
       required: true,
+    },
+    installed_on: {
+      type: Date,
+      default: new Date(),
     },
   });
 
   const User = mongoose.model("users", DetailSchema);
-  const createDocument = async () => {
+
+  const createDocument = async (shop, token) => {
     try {
       const newUser = new User({
-        id: "1",
-        name: "Milan Ramani",
+        shop: shop,
+        token: token,
       });
       const result = await newUser.save();
       console.log(result);
@@ -35,21 +43,21 @@ export default function scriptTagApi(app) {
       console.log(err);
     }
   };
-  app.get("/api/test-api", async (req, res) => {
-    createDocument();
+  app.post("/api/testPost", async (req, res) => {
+    console.log(req.body);
     res.json({
       status: "success",
       message: "Data inserted successfully",
     });
   });
-
-  app.get("/api/getOrder", async (req, res) => {
-    const session = returnSessionData(req, res);
-
+  app.get("/api/newUser", async (req, res) => {
+    createDocument(
+      "playing-app.myshopify.com",
+      "this is going to be access token"
+    );
     res.json({
       status: "success",
-      message: "Data inserted successfully:",
-      session,
+      message: "Data inserted successfully",
     });
   });
 }
